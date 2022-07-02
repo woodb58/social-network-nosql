@@ -1,5 +1,5 @@
 {
-  "name": "social-network",
+  "name": "social-network-nosql",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
