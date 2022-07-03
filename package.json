@@ -14,5 +14,13 @@
   },
   "devDependencies": {},
   "keywords": [],
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woodb58/social-network-nosql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/woodb58/social-network-nosql/issues"
+  },
+  "homepage": "https://github.com/woodb58/social-network-nosql#readme"
 }
