@@ -14,7 +14,7 @@ const thoughtController = {
         if (!dbThoughtData) {
           res
             .status(404)
-            .json({ message: "No thoughts with this particular ID!" });
+            .json({ message: "No thoughts with this ID!" });
           return;
         }
         res.json(dbThoughtData);

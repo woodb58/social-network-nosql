@@ -31,7 +31,7 @@ const userController = {
       .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No User with this particular ID!" });
+          res.status(404).json({ message: "No User with this ID!" });
           return;
         }
         res.json(dbUserData);
@@ -50,7 +50,7 @@ const userController = {
     })
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No User with this particular ID!" });
+          res.status(404).json({ message: "No User with this ID!" });
           return;
         }
         res.json(dbUserData);
@@ -58,19 +58,36 @@ const userController = {
       .catch((err) => res.json(err));
   },
 
-  //Delete user and users associated thoughts
+  //Delete user and users associated thoughts and remove from friends
   deleteUser({ params }, res) {
-    Thought.deleteMany({ userId: params.id })
-      .then(() => {
-        User.findOneAndDelete({ userId: params.id }).then((dbUserData) => {
-          if (!dbUserData) {
-            res.status(404).json({ message: "No User found with this id!" });
-            return;
-          }
-          res.json(dbUserData);
-        });
+    User.findOneAndDelete({ _id: params.id })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({ message: "No user found with this id." });
+          return;
+        }
+        return dbUserData;
       })
-      .catch((err) => res.json(err));
+      .then((dbUserData) => {
+        User.updateMany(
+          {
+            _id: { $in: dbUserData.friends },
+          },
+          {
+            $pull: { friends: params.userId },
+          }
+        ).then(() => {
+          //deletes user's thought associated with id
+          Thought.deleteMany({ username: dbUserData.username })
+            .then(() => {
+              res.json({ message: "User deleted" });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(400).json(err);
+            });
+        });
+      });
   },
 
   // add friend
@@ -84,7 +101,7 @@ const userController = {
       .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No User with this particular ID!" });
+          res.status(404).json({ message: "No User with this ID!" });
           return;
         }
         res.json(dbUserData);
@@ -104,7 +121,7 @@ const userController = {
       .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No User with this particular ID!" });
+          res.status(404).json({ message: "No User with this ID!" });
           return;
         }
         res.json(dbUserData);
