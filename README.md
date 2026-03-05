@@ -12,7 +12,6 @@
 ### Demo Link:
 
 
-Demo video available [HERE](https://drive.google.com/file/d/1r9gybX9TPbCUZoIBx7qX4-SaY8JqL8Cn/view)
 
 
 
