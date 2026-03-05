@@ -9,7 +9,7 @@
 - When the user tests API POST, PUT, and DELETE routes in Insomnia they are able to successfully create, update, and delete users and thoughts in their database
 - When the user tests API POST and DELETE routes in Insomnia they are able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 
-### Demo Link:
+
 
 
 
